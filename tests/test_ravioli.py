@@ -1,6 +1,6 @@
 import os
 import unittest
-
+from typing import List
 import pandas as pd
 
 from ravioli.datastructure import Ravioli
@@ -20,7 +20,7 @@ class TestInitRavioli(unittest.TestCase):
         self.assertEqual(df.shape, (40, 11))
 
     def test_init_args(self):
-        columns = [
+        columns: List[str] = [
             "pickup_datetime",
             "dropoff_datetime",
             "pickup_longitude",
