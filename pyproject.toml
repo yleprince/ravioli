@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "ravioli"
+name = "ravioly"
 version = "0.1.0"
 description = "Data structure to handle New York city taxi data."
 authors = ["yleprince <yrieix.leprince@gmail.com>"]

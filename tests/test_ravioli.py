@@ -4,20 +4,20 @@ from typing import List
 
 import pandas as pd
 
-from ravioli.datastructure import Ravioli
+from ravioly.datastructure import Ravioly
 
 
-class TestInitRavioli(unittest.TestCase):
-    """Checks that the ravioli class succeeds during init"""
+class TestInitravioly(unittest.TestCase):
+    """Checks that the ravioly class succeeds during init"""
 
     def setUp(self):
         self.path = os.path.dirname(__file__)
         self.filepath = os.path.join(self.path, "samples.csv")
 
     def test_init(self):
-        df: Ravioli = Ravioli(self.filepath)
+        df: ravioly = Ravioly(self.filepath)
         self.assertIsInstance(df, pd.DataFrame)
-        self.assertIsInstance(df, Ravioli)
+        self.assertIsInstance(df, Ravioly)
         self.assertEqual(df.shape, (40, 12))
 
     def test_init_args(self):
@@ -30,22 +30,23 @@ class TestInitRavioli(unittest.TestCase):
             "dropoff_latitude",
             "trip_duration",
         ]
-        df: Ravioli = Ravioli(self.filepath, nrows=26, usecols=columns)
+        df: Ravioly = Ravioly(self.filepath, nrows=26, usecols=columns)
         self.assertIsInstance(df, pd.DataFrame)
-        self.assertIsInstance(df, Ravioli)
+        self.assertIsInstance(df, Ravioly)
         self.assertEqual(df.shape, (26, 8))
         self.assertTrue("distance" in df.columns)
 
 
 class TestDistanceComputations(unittest.TestCase):
-    """Checks that the ravioli class succeeds during init"""
+    """Checks that the Ravioly class succeeds during init to compute the distance
+     between the pickup and the drop off coordinates."""
 
     def setUp(self):
         self.path = os.path.dirname(__file__)
         self.filepath = os.path.join(self.path, "samples.csv")
 
     def test_distance_values(self):
-        df: Ravioli = Ravioli(self.filepath)
+        df: Ravioly = Ravioly(self.filepath)
         expected: List[float] = [
             1.498521,
             1.805507,
@@ -92,8 +93,8 @@ class TestDistanceComputations(unittest.TestCase):
             self.assertAlmostEqual(value, target, delta=0.0001)
 
     def test_haversine_distance(self):
-        self.assertEqual(Ravioli._haversine_distance(self, (0, 0), (0, 0)), 0.0)
+        self.assertEqual(Ravioly._haversine_distance(self, (0, 0), (0, 0)), 0.0)
         self.assertEqual(
-            Ravioli._haversine_distance(self, (48.87, 2.33), (51.53, -0.24)),
+            Ravioly._haversine_distance(self, (48.87, 2.33), (51.53, -0.24)),
             347.72272585658754,
         )
