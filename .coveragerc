@@ -1,5 +1,5 @@
 [run]
-source = ravioli
+source = ravioly
 
 [report]
 exclude_lines =
