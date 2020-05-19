@@ -15,7 +15,7 @@ class TestInitravioly(unittest.TestCase):
         self.filepath = os.path.join(self.path, "samples.csv")
 
     def test_init(self):
-        df: ravioly = Ravioly(self.filepath)
+        df: Ravioly = Ravioly(self.filepath)
         self.assertIsInstance(df, pd.DataFrame)
         self.assertIsInstance(df, Ravioly)
         self.assertEqual(df.shape, (40, 12))
