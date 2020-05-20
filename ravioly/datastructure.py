@@ -56,3 +56,12 @@ class Ravioly(DataFrame):
         coords0: Tuple[float, float] = (row.pickup_latitude, row.pickup_longitude)
         coords1: Tuple[float, float] = (row.dropoff_latitude, row.dropoff_longitude)
         return self._haversine_distance(coords0, coords1)
+
+    def trip_by_dow(self) -> Series:
+        """
+        Count trips by week day
+        :return: trip counts by day of week
+        """
+        trip_by_dow: Series = self.pickup_datetime.dt.dayofweek.value_counts().sort_index()
+        trip_by_dow.name = "trip_by_dow"
+        return trip_by_dow

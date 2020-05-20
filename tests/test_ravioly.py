@@ -3,12 +3,11 @@ import unittest
 from typing import List
 
 import pandas as pd
-
 from ravioly.datastructure import Ravioly
 
 
 class TestInitravioly(unittest.TestCase):
-    """Checks that the ravioly class succeeds during init"""
+    """Tests that the ravioly class succeeds during init"""
 
     def setUp(self):
         self.path = os.path.dirname(__file__)
@@ -39,7 +38,7 @@ class TestInitravioly(unittest.TestCase):
 
 
 class TestDistanceComputations(unittest.TestCase):
-    """Checks that the Ravioly class succeeds during init to compute the distance
+    """Tests that the Ravioly class succeeds during init to compute the distance
      between the pickup and the drop off coordinates."""
 
     def setUp(self):
@@ -104,7 +103,7 @@ class TestDistanceComputations(unittest.TestCase):
 
 
 class TestAverageSpeedComputations(unittest.TestCase):
-    """Checks that the Ravioly class succeeds during init to compute average
+    """Tests that the Ravioly class succeeds during init to compute average
      speeds between the pickup and the drop off coordinates."""
 
     def setUp(self):
@@ -157,3 +156,18 @@ class TestAverageSpeedComputations(unittest.TestCase):
         ]
         for value, target in zip(df.avg_speed.values, expected):
             self.assertAlmostEqual(value, target, delta=0.0001)
+
+
+class TestTripByDayOfWeek(unittest.TestCase):
+    """Tests the method trip_by_dow that counts the number of trip by weekday."""
+
+    def setUp(self):
+        self.path = os.path.dirname(__file__)
+        self.filepath = os.path.join(self.path, "samples.csv")
+
+    def test_trip_by_dow(self):
+        df: Ravioly = Ravioly(self.filepath)
+        expected: List[int] = [6, 6, 3, 3, 8, 8, 6]
+        for value, target in zip(df.trip_by_dow().values, expected):
+            self.assertEqual(value, target)
+        self.assertEqual(df.trip_by_dow().name, "trip_by_dow")
