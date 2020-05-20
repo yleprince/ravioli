@@ -6,8 +6,8 @@ import pandas as pd
 from ravioly.datastructure import Ravioly
 
 
-class TestInitravioly(unittest.TestCase):
-    """Tests that the ravioly class succeeds during init"""
+class TestInitRavioly(unittest.TestCase):
+    """Tests that the Ravioly class succeeds during init"""
 
     def setUp(self):
         self.path = os.path.dirname(__file__)
@@ -159,7 +159,7 @@ class TestAverageSpeedComputations(unittest.TestCase):
 
 
 class TestTripByDayOfWeek(unittest.TestCase):
-    """Tests the method trip_by_dow that counts the number of trip by weekday."""
+    """Tests the method trip_by_dow that counts the number of trips by weekday."""
 
     def setUp(self):
         self.path = os.path.dirname(__file__)
@@ -171,3 +171,18 @@ class TestTripByDayOfWeek(unittest.TestCase):
         for value, target in zip(df.trip_by_dow().values, expected):
             self.assertEqual(value, target)
         self.assertEqual(df.trip_by_dow().name, "trip_by_dow")
+
+
+class TestTripBy4Hours(unittest.TestCase):
+    """Tests the method trip_by_4h that counts the number of trips every 4 hours."""
+
+    def setUp(self):
+        self.path = os.path.dirname(__file__)
+        self.filepath = os.path.join(self.path, "samples.csv")
+
+    def test_trip_by_4h(self):
+        df: Ravioly = Ravioly(self.filepath)
+        expected: List[int] = [4, 2, 8, 11, 5, 10]
+        for value, target in zip(df.trip_by_4h().values, expected):
+            self.assertEqual(value, target)
+        self.assertEqual(df.trip_by_4h().name, "trip_by_4h")
