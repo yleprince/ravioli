@@ -66,13 +66,25 @@ class Ravioly(DataFrame):
         trip_by_dow.name = "trip_by_dow"
         return trip_by_dow
 
+    def trip_by_ih(self, step) -> Series:
+        """
+        Count trips every `step` hours
+        :return: trip counts every `step` hours
+        """
+        if type(step) in [int, float] and step > 0 and 24 >= step:
+            trip_by_step_h: Series = self.pickup_datetime.dt.hour.apply(
+                lambda hour: step * (hour // step)
+            ).value_counts().sort_index()
+            trip_by_step_h.name = f"trip_by_{step}h"
+            return trip_by_step_h
+        else:
+            raise ValueError(
+                f"step should int or float, and within ]0, 24]. {step} given."
+            )
+
     def trip_by_4h(self) -> Series:
         """
         Count trips by 4h steps
         :return: trip counts every 4hours
         """
-        trip_by_4h: Series = self.pickup_datetime.dt.hour.apply(
-            lambda hour: 4 * (hour >> 2)
-        ).value_counts().sort_index()
-        trip_by_4h.name = "trip_by_4h"
-        return trip_by_4h
+        return self.trip_by_ih(4)
