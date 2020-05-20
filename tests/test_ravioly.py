@@ -227,3 +227,29 @@ class TestTripByIHours(unittest.TestCase):
         for value, target in zip(df.trip_by_4h().values, expected):
             self.assertEqual(value, target)
         self.assertEqual(df.trip_by_4h().name, "trip_by_4h")
+
+
+class TestKilometerByDayOfWeek(unittest.TestCase):
+    """
+    Tests the method km_by_dow that sums the number of kilometers traveled
+    by day of week.
+    """
+
+    def setUp(self):
+        self.path = os.path.dirname(__file__)
+        self.filepath = os.path.join(self.path, "samples.csv")
+
+    def test_km_by_dow(self):
+        df: Ravioly = Ravioly(self.filepath)
+        expected: List[float] = [
+            16.45197715,
+            22.97903081,
+            12.41662616,
+            8.61926878,
+            38.01072274,
+            27.85664986,
+            24.18571021,
+        ]
+
+        for value, target in zip(df.km_by_dow().values, expected):
+            self.assertAlmostEqual(value, target, delta=0.0001)

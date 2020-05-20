@@ -88,3 +88,15 @@ class Ravioly(DataFrame):
         :return: trip counts every 4hours
         """
         return self.trip_by_ih(4)
+
+    def km_by_dow(self) -> Series:
+        """
+        Count kilometers by week days
+        :return: km counts by day of week
+        """
+        copy = self.assign(day_of_week=self.pickup_datetime.dt.dayofweek)
+        km_by_dow = (
+            copy[["distance", "day_of_week"]].groupby("day_of_week").sum()["distance"]
+        )
+        km_by_dow.name = "km_by_dow"
+        return km_by_dow
