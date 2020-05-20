@@ -65,3 +65,14 @@ class Ravioly(DataFrame):
         trip_by_dow: Series = self.pickup_datetime.dt.dayofweek.value_counts().sort_index()
         trip_by_dow.name = "trip_by_dow"
         return trip_by_dow
+
+    def trip_by_4h(self) -> Series:
+        """
+        Count trips by 4h steps
+        :return: trip counts every 4hours
+        """
+        trip_by_4h: Series = self.pickup_datetime.dt.hour.apply(
+            lambda hour: 4 * (hour >> 2)
+        ).value_counts().sort_index()
+        trip_by_4h.name = "trip_by_4h"
+        return trip_by_4h
