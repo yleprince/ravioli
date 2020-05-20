@@ -14,6 +14,7 @@ class Ravioly(DataFrame):
             self.dropoff_datetime
         ).dt.tz_localize("US/Eastern")
         self["distance"]: Series = self.apply(self._distance, axis="columns")
+        self["avg_speed"]: Series = self.distance / (self.trip_duration / 3600)
 
     def _haversine_distance(
         self, coords0: Tuple[float, float], coords1: Tuple[float, float]
