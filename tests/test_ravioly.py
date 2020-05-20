@@ -173,12 +173,53 @@ class TestTripByDayOfWeek(unittest.TestCase):
         self.assertEqual(df.trip_by_dow().name, "trip_by_dow")
 
 
-class TestTripBy4Hours(unittest.TestCase):
-    """Tests the method trip_by_4h that counts the number of trips every 4 hours."""
+class TestTripByIHours(unittest.TestCase):
+    """Tests the method trip_by_ih that counts the number of trips every `i` hours."""
 
     def setUp(self):
         self.path = os.path.dirname(__file__)
         self.filepath = os.path.join(self.path, "samples.csv")
+
+    def test_trip_by_ih(self):
+        df: Ravioly = Ravioly(self.filepath)
+
+        expected_2h: List[int] = [2, 2, 2, 4, 4, 6, 5, 3, 2, 4, 6]
+        for value, target in zip(df.trip_by_ih(2).values, expected_2h):
+            self.assertEqual(value, target)
+        self.assertEqual(df.trip_by_ih(2).name, "trip_by_2h")
+
+        expected_23h: List[int] = [37, 3]
+        for value, target in zip(df.trip_by_ih(23).values, expected_23h):
+            self.assertEqual(value, target)
+        self.assertEqual(df.trip_by_ih(23).name, "trip_by_23h")
+
+        expected_24h: List[int] = [40]
+        for value, target in zip(df.trip_by_ih(24).values, expected_24h):
+            self.assertEqual(value, target)
+        self.assertEqual(df.trip_by_ih(24).name, "trip_by_24h")
+
+    def test_limits_trip_by_ih(self):
+        df: Ravioly = Ravioly(self.filepath)
+        with self.assertRaises(ValueError) as context:
+            df.trip_by_ih(-1)
+        self.assertTrue(
+            "step should int or float, and within ]0, 24]. -1 given."
+            in str(context.exception)
+        )
+
+        with self.assertRaises(ValueError) as context:
+            df.trip_by_ih(25)
+        self.assertTrue(
+            "step should int or float, and within ]0, 24]. 25 given."
+            in str(context.exception)
+        )
+
+        with self.assertRaises(ValueError) as context:
+            df.trip_by_ih("toto")
+        self.assertTrue(
+            "step should int or float, and within ]0, 24]. toto given."
+            in str(context.exception)
+        )
 
     def test_trip_by_4h(self):
         df: Ravioly = Ravioly(self.filepath)
