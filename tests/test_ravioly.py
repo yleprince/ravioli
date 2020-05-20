@@ -18,7 +18,7 @@ class TestInitravioly(unittest.TestCase):
         df: Ravioly = Ravioly(self.filepath)
         self.assertIsInstance(df, pd.DataFrame)
         self.assertIsInstance(df, Ravioly)
-        self.assertEqual(df.shape, (40, 12))
+        self.assertEqual(df.shape, (40, 13))
 
     def test_init_args(self):
         columns: List[str] = [
@@ -33,8 +33,9 @@ class TestInitravioly(unittest.TestCase):
         df: Ravioly = Ravioly(self.filepath, nrows=26, usecols=columns)
         self.assertIsInstance(df, pd.DataFrame)
         self.assertIsInstance(df, Ravioly)
-        self.assertEqual(df.shape, (26, 8))
+        self.assertEqual(df.shape, (26, 9))
         self.assertTrue("distance" in df.columns)
+        self.assertTrue("avg_speed" in df.columns)
 
 
 class TestDistanceComputations(unittest.TestCase):
@@ -94,7 +95,65 @@ class TestDistanceComputations(unittest.TestCase):
 
     def test_haversine_distance(self):
         self.assertEqual(Ravioly._haversine_distance(self, (0, 0), (0, 0)), 0.0)
+
+        # d(Paris - London) is 347 km
         self.assertEqual(
             Ravioly._haversine_distance(self, (48.87, 2.33), (51.53, -0.24)),
             347.72272585658754,
         )
+
+
+class TestAverageSpeedComputations(unittest.TestCase):
+    """Checks that the Ravioly class succeeds during init to compute average
+     speeds between the pickup and the drop off coordinates."""
+
+    def setUp(self):
+        self.path = os.path.dirname(__file__)
+        self.filepath = os.path.join(self.path, "samples.csv")
+
+    def test_avg_speed_values(self):
+        df: Ravioly = Ravioly(self.filepath)
+        expected: List[float] = [
+            11.856428,
+            9.803659,
+            10.822201,
+            12.465721,
+            9.836594,
+            8.930458,
+            14.001768,
+            13.264945,
+            18.499105,
+            15.049944,
+            10.755182,
+            12.041796,
+            6.009101,
+            13.731021,
+            16.250501,
+            11.202279,
+            5.328631,
+            12.502351,
+            12.588249,
+            18.692336,
+            18.562416,
+            9.522056,
+            17.592212,
+            15.089641,
+            29.846789,
+            12.793679,
+            19.293800,
+            19.394051,
+            10.189974,
+            15.350491,
+            11.110572,
+            18.628805,
+            15.848751,
+            16.244242,
+            7.297254,
+            10.213026,
+            7.397850,
+            12.469197,
+            10.029165,
+            6.116273,
+        ]
+        for value, target in zip(df.avg_speed.values, expected):
+            self.assertAlmostEqual(value, target, delta=0.0001)
