@@ -169,16 +169,12 @@
 <dt id="ravioly.datastructure.Ravioly">
 <em class="property">class </em><code class="sig-prename descclassname">ravioly.datastructure.</code><code class="sig-name descname">Ravioly</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ravioly.datastructure.Ravioly" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
-<p>Ravioly is a pandas.DataFrame subclass dedicated to New York taxi dataset.
-It uses Dataframes as datastructure and provides specific processing and methods.</p>
-<p>To create a Ravioly instance, it overloads the method <cite>pd.read_csv</cite>.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Ravioly</span><span class="p">(</span><span class="s1">&#39;filepath&#39;</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>Ravioly is a pandas.DataFrame subclass. It uses a Dataframe as datastructure and
+provides specific processing and methods.</p>
 <dl class="py method">
 <dt id="ravioly.datastructure.Ravioly.km_by_dow">
 <code class="sig-name descname">km_by_dow</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.series.Series<a class="headerlink" href="#ravioly.datastructure.Ravioly.km_by_dow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Count kilometers traveled by week days
+<dd><p>Count kilometers by week days
 :return: km counts by day of week</p>
 </dd></dl>
 
