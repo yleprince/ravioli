@@ -5,6 +5,11 @@ from pandas import DataFrame, Series, read_csv, to_datetime
 
 
 class Ravioly(DataFrame):
+    """
+    Ravioly is a pandas.DataFrame subclass. It uses a Dataframe as datastructure and
+    provides specific processing and methods.
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(read_csv(*args, **kwargs))
         self.pickup_datetime: Series = to_datetime(self.pickup_datetime).dt.tz_localize(
