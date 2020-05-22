@@ -6,8 +6,12 @@ from pandas import DataFrame, Series, read_csv, to_datetime
 
 class Ravioly(DataFrame):
     """
-    Ravioly is a pandas.DataFrame subclass. It uses a Dataframe as datastructure and
-    provides specific processing and methods.
+    Ravioly is a pandas.DataFrame subclass dedicated to New York taxi dataset.
+    It uses Dataframes as datastructure and provides specific processing and methods.
+
+    To create a Ravioly instance, it overloads the method `pd.read_csv`.
+
+    >>> Ravioly('filepath', nrows=40)
     """
 
     def __init__(self, *args, **kwargs):
@@ -32,9 +36,9 @@ class Ravioly(DataFrame):
         :param coords1: second GPS coordinates (latitude, longitude)
         :return: haversine distance in KM between the two GPS coordinates.
 
-        >>> haversine_distance((0, 0), (0, 0))
+        >>> _haversine_distance((0, 0), (0, 0))
         0.0
-        >>> haversine_distance((48.87, 2.33), (51.53, -0.24))
+        >>> _haversine_distance((48.87, 2.33), (51.53, -0.24))
         347.72272585658754
         """
         radius: int = 6371  # Earth avg radius
@@ -55,8 +59,9 @@ class Ravioly(DataFrame):
 
     def _distance(self, row: Series) -> float:
         """
-        Compute distance for a single row (ie. taxi trip)
-        return: km
+        Compute distance for a single row (ie. taxi trip) using the pickup and
+        dropoff coordinates.
+        return: distance in kilometers
         """
         coords0: Tuple[float, float] = (row.pickup_latitude, row.pickup_longitude)
         coords1: Tuple[float, float] = (row.dropoff_latitude, row.dropoff_longitude)
@@ -96,7 +101,7 @@ class Ravioly(DataFrame):
 
     def km_by_dow(self) -> Series:
         """
-        Count kilometers by week days
+        Count kilometers traveled by week days
         :return: km counts by day of week
         """
         copy = self.assign(day_of_week=self.pickup_datetime.dt.dayofweek)
