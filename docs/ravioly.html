@@ -167,40 +167,75 @@
 <span id="ravioly-datastructure-module"></span><h2>ravioly.datastructure module<a class="headerlink" href="#module-ravioly.datastructure" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="ravioly.datastructure.Ravioly">
-<em class="property">class </em><code class="sig-prename descclassname">ravioly.datastructure.</code><code class="sig-name descname">Ravioly</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ravioly.datastructure.Ravioly" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">ravioly.datastructure.</code><code class="sig-name descname">Ravioly</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ravioly.datastructure.Ravioly" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
-<p>Ravioly is a pandas.DataFrame subclass dedicated to New York taxi dataset.
-It uses Dataframes as datastructure and provides specific processing and methods.</p>
-<p>To create a Ravioly instance, it overloads the method <cite>pd.read_csv</cite>.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Ravioly</span><span class="p">(</span><span class="s1">&#39;filepath&#39;</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<p><strong>Ravioly is a pandas.DataFrame subclass dedicated to New York taxi dataset.</strong></p>
+<dl class="simple">
+<dt>Automated processings</dt><dd><ul class="simple">
+<li><p><cite>pickup</cite> and <cite>dropoff</cite> datetimes are converted in datetime type, and localized to NYC timezone.</p></li>
+<li><p><cite>distance</cite> and <cite>avg_speed</cite> are automatically generated from raw data.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Init</dt>
+<dd class="field-odd"><p>Ravioly init overloads <cite>pd.read_csv</cite>, so it has a mendatory parameter <cite>filepath</cite> that leads to the New York city csv file.</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ravioly.datastructure</span> <span class="kn">import</span> <span class="n">Ravioly</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Ravioly</span><span class="p">(</span><span class="s1">&#39;../data/train.csv&#39;</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">           id  vendor_id           pickup_datetime          dropoff_datetime  passenger_count  pickup_longitude  pickup_latitude  dropoff_longitude  dropoff_latitude store_and_fwd_flag  trip_duration  distance  avg_speed</span>
+<span class="go">0  id2875421          2 2016-03-14 17:24:55-04:00 2016-03-14 17:32:30-04:00                 1        -73.982155        40.767937         -73.964630         40.765602                  N            455  1.498521  11.856428</span>
+<span class="go">1  id2377394          1 2016-06-12 00:43:35-04:00 2016-06-12 00:54:38-04:00                 1        -73.980415        40.738564         -73.999481         40.731152                  N            663  1.805507   9.803659</span>
 </pre></div>
 </div>
 <dl class="py method">
 <dt id="ravioly.datastructure.Ravioly.km_by_dow">
 <code class="sig-name descname">km_by_dow</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.series.Series<a class="headerlink" href="#ravioly.datastructure.Ravioly.km_by_dow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Count kilometers traveled by week days
-:return: km counts by day of week</p>
+<dd><p>Count kilometers traveled by week days.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>km counts by day of week</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ravioly.datastructure.Ravioly.trip_by_4h">
 <code class="sig-name descname">trip_by_4h</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.series.Series<a class="headerlink" href="#ravioly.datastructure.Ravioly.trip_by_4h" title="Permalink to this definition">¶</a></dt>
-<dd><p>Count trips by 4h steps
-:return: trip counts every 4hours</p>
+<dd><p>Count trips by 4h steps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>trip counts every 4hours</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ravioly.datastructure.Ravioly.trip_by_dow">
 <code class="sig-name descname">trip_by_dow</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.series.Series<a class="headerlink" href="#ravioly.datastructure.Ravioly.trip_by_dow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Count trips by week day
-:return: trip counts by day of week</p>
+<dd><p>Count trips by week day.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>trip counts by day of week</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ravioly.datastructure.Ravioly.trip_by_ih">
 <code class="sig-name descname">trip_by_ih</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">step</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.series.Series<a class="headerlink" href="#ravioly.datastructure.Ravioly.trip_by_ih" title="Permalink to this definition">¶</a></dt>
-<dd><p>Count trips every <cite>step</cite> hours
-:return: trip counts every <cite>step</cite> hours</p>
+<dd><p>Count trips every <cite>step</cite> hours.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>step</strong> (<em>int</em><em>, </em><em>float</em>) – number of hours to groupby. Must be positive.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>trip counts every <cite>step</cite> hours</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
