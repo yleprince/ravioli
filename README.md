@@ -10,7 +10,31 @@ Ravioly is a way to encapsulate the raw data contained in NYC taxi csv files. As
 
 ## Install and Use:
 
+:bulb: Python `^3.7` is required.
+
+Install using `pip`:
+
 ```sh
+pip install git+https://github.com/yleprince/ravioly.git
+```
+
+In your python code:
+
+```python
+>>> from ravioly.datastructure import Ravioly
+
+>>> df = Ravioly('../data/nyc_data.csv', nrows=1000)
+>>> df.km_by_dow()
+
+day_of_week
+0    480.647876
+1    466.137703
+2    553.287868
+3    427.187865
+4    465.982398
+5    489.352866
+6    557.113716
+Name: km_by_dow, dtype: float64
 ```
 
 ## Tools used:
@@ -34,6 +58,7 @@ Ravioly is a way to encapsulate the raw data contained in NYC taxi csv files. As
 * **`Documentation`**:
   * [sphinx](https://www.sphinx-doc.org/en/master/): automatically generate the documentation from source code.
   * [read the doc theme](https://sphinx-rtd-theme.readthedocs.io/): theme for the documentation
+  * [github pages](https://pages.github.com/): to serve the documentation: https://yleprince.github.io/ravioly/
 
 * **`Bonus`**:
   * [pre-commit](https://pre-commit.com/): pre-commit allows to run lint and tests workflow automatically at every step of the project
