@@ -1,6 +1,15 @@
 # ravioly :spaghetti:
 
+[![](https://img.shields.io/badge/linkedin-connect-9cf?&logo=linkedin)](https://www.linkedin.com/in/yrieix.leprince)
+![](https://img.shields.io/github/license/yleprince/ravioly.svg?color=9cf)
+![](https://img.shields.io/github/languages/top/yleprince/ravioly.svg)
+
 ![](https://github.com/yleprince/ravioly/workflows/Python%20CI/badge.svg)
+![](https://img.shields.io/github/last-commit/yleprince/ravioly.svg)
+![](https://img.shields.io/github/commit-activity/y/yleprince/ravioly)
+
+![](https://img.shields.io/github/issues-pr-closed-raw/yleprince/ravioly.svg)
+![](https://img.shields.io/github/issues-closed-raw/yleprince/ravioly.svg)
 
 
 ## Context :car: :cityscape: :us:
